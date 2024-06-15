@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+TODO: Điều hướng toàn bộ request tới dispatcher-servlet,
+    bằng cách xóa tất cả các khai báo servlet hiện có và
+    thay thế bằng Spring MVC DispatcherServlet trong file web.xml:
+-->
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_${WEB_XML_VERSION_FILE}.xsd"
+         version="4.0">
+    <context-param>
+        <!--
+        TODO:  Khai báo bổ sung file cấu hình này cho dispatcher.
+                Ta cũng có thể cấu hình để dispatcher ngay lập tức
+                bắt đầu vòng đời của nó ngay khi app được khởi động,
+                 mà không cần chờ tới request đầu tiên:
+        -->
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

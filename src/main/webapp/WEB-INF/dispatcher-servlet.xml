@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TODO: DispatcherServlet cần được cung cấp một cấu hình app-context
+          để có thể khởi động vòng đời của nó. Một cách để có cấu hình này
+          là tạo file cấu hình .xml, chẳng hạn WEB-INF/dispatcher-servlet.xml:
+  -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--
+    TODO: Cấu hình vào file dispatcher-servlet.xml
+     để Spring MVC quét danh sách các controller
+      khả dụng theo annotation và theo package:
+    -->
+    <context:component-scan base-package="vn.codegym"/>
+
+    <mvc:annotation-driven/>
+    <!--
+    TODO: - Sử dụng vỏ bọc Dependency Injection để gỡ phụ thuộc vào lớp implement.
+            - Khai báo một service bean vào file dispatcher-servlet.xml:
+    -->
+    <bean name="customerService" class="vn.codegym.service.impl.SimpleCustomerServiceImpl">
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>
